@@ -5,6 +5,7 @@ module.exports = {
   presets: [],
   darkMode: false, // or 'media' or 'class'
   theme: {
+
     screens: {
       sm: '640px',
       md: '768px',
@@ -803,6 +804,14 @@ module.exports = {
       40: '40',
       50: '50',
     },
+    extend: {
+      lineClamp: {
+        7: '7',
+        8: '8',
+        9: '9',
+        10: '10',
+      }
+    },
   },
   variantOrder: [
     'first',
@@ -966,6 +975,9 @@ module.exports = {
     width: ['responsive'],
     wordBreak: ['responsive'],
     zIndex: ['responsive', 'focus-within', 'focus'],
+    lineClamp: ['responsive', 'hover'],
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/line-clamp'),
+  ],
 }
