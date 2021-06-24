@@ -1,24 +1,42 @@
 import './App.css';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
 import Login from './Components/Login/Login'
 import AddBlog from './Components/AddBlog/AddBlog';
-import Blogs from './Components/Blogs/Blogs'
-import LoadBlogs from './Components/LoadBlogs/LoadBlogs';
-import Footer from './Components/Footer/Footer';
+import Home from './Components/Home/Home';
+import NoMatch from './Components/NoMatch/NoMatch';
 
 
 function App() {
 
   return (
-    <div>
+    <Router>
 
+      <Switch>
+        <Route path="/login">
+          <Login />
+        </Route>
+        {/* <Route path="/users">
+          <Users />
+        </Route> */}
+        <Route path="/">
+          <Home />
+        </Route>
+        <Route path="*">
+          <NoMatch />
+        </Route>
+      </Switch>
 
-      <h1 className="text-4xl font-bold">tanjin</h1>
-      <Login />
-      <LoadBlogs></LoadBlogs>
-      <Blogs></Blogs>
-      <AddBlog></AddBlog>
-      <Footer></Footer>
-    </div>
+    </Router>
+
+    //   <AddBlog></AddBlog>
+    //  
+    // </div>
   )
 }
 

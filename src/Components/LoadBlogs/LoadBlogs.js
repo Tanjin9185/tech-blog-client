@@ -23,7 +23,7 @@ const LoadBlogs = () => {
 
     return (
         <div className="container mx-auto">
-            <div className="flex flex-wrap">
+            <div className="flex flex-wrap sm:flex-grow-1 sm:pl-6">
                 {
                     blogs.length === 0 && <RiseLoader css={override} color='#808080'></RiseLoader>
                 }
