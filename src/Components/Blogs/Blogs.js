@@ -2,7 +2,6 @@ import React from 'react';
 
 const Blogs = ({ blog }) => {
 
-    console.log({ blog })
     const [showModal, setShowModal] = React.useState(false);
 
     return (
