@@ -59,15 +59,15 @@ const Blogs = ({ blog }) => {
                         {/* <h2 className="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">{blog?.title}</h2> */}
                         <h1 className="title-font text-lg font-medium text-gray-900 mb-3">{blog?.title}</h1>
                         <p className="mb-3 line-clamp-2">{blog?.content}</p>
-                        <div className="flex items-center flex-wrap bg-pink-100 rounded-b-xl">
+                        <div className="flex items-center flex-wrap bg-gray-200 rounded-b-xl pr-1">
                             <button
-                                className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                className="bg-gray-500 text-gray-300 active:bg-pink-600 font-bold uppercase text-sm px-5 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                 type="button"
                                 onClick={() => setShowModal(true)}
                             >
                                 Read More
                             </button>
-                            {/* <span className="text-gray-400 mr-3 inline-flex items-center lg:ml-auto md:ml-0 ml-auto leading-none text-sm pr-3 py-1 border-r-2 border-gray-200">
+                            <span className="text-gray-400 mr-3 inline-flex items-center lg:ml-auto md:ml-0 ml-auto leading-none text-sm pr-3 py-1 border-r-2 border-gray-200">
                                 <svg className="w-4 h-4 mr-1" stroke="currentColor" strokeWidth={2} fill="none" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
                                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
                                     <circle cx={12} cy={12} r={3} />
@@ -77,7 +77,7 @@ const Blogs = ({ blog }) => {
                                 <svg className="w-4 h-4 mr-1" stroke="currentColor" strokeWidth={2} fill="none" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
                                     <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" />
                                 </svg>6
-                            </span> */}
+                            </span>
                         </div>
                     </div>
                 </div>

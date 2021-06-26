@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import logo from '../../../src/image/logo.png';
 
 const Navbar = () => {
     return (
@@ -8,8 +9,10 @@ const Navbar = () => {
                 <div className="flex flex-col md:flex-row md:justify-between md:items-center">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center">
-                            <a className="text-2xl font-bold text-gray-800 dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300" href="#">Brand</a>
+                            <Link to="/" className="text-2xl font-bold text-purpal-400 dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300"><img src={logo} alt="" /></Link>
+
                             {/* Search input on desktop screen */}
+
                             <div className="hidden mx-10 md:block">
                                 <div className="relative">
                                     <span className="absolute inset-y-0 left-0 flex items-center pl-3">

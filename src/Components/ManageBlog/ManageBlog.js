@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Dashboard from '../Dashboard/Dashboard';
+import RiseLoader from "react-spinners/RiseLoader";
+import { css } from '@emotion/react';
 
 const ManageBlog = () => {
+
+    const override = css`
+         margin: 0 auto;
+    `;
 
     const [manageBlog, setManageBlog] = useState([]);
     const [showModal, setShowModal] = React.useState(false);
@@ -27,8 +33,6 @@ const ManageBlog = () => {
                 console.log(error)
             })
         alert("Service deleted successfully")
-
-
     }
 
     return (
@@ -36,11 +40,14 @@ const ManageBlog = () => {
             <div flex flex-col w-64>
                 <Dashboard />
             </div>
+            <div className="flex flex-wrap sm:flex-grow-1 items-center justify-center mx-auto">
+                {
+                    manageBlog.length === 0 && <RiseLoader css={override} color='#808080'></RiseLoader>
+                }
+            </div>
             <div className='container flex flex-wrap'>
                 {manageBlog.map(blog => {
                     return (
-
-
                         <div key={blog._id} className="p-6 md:w-1/2 lg:w-1/3 ">
                             <div className="shadow-xl  rounded-xl bg-blueGray-50 h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
                                 <img className="lg:h-48 md:h-36 sm:w-full object-cover object-center" src={`data:image/png;base64,${blog?.image.img}`} alt="blog" />
@@ -48,16 +55,16 @@ const ManageBlog = () => {
                                     {/* <h2 className="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">{blog?.title}</h2> */}
                                     <h1 className="title-font text-lg font-medium text-gray-900 mb-3">{blog?.title}</h1>
                                     <p className="mb-3 line-clamp-2">{blog?.content}</p>
-                                    <div className="flex items-center flex-wrap bg-pink-100 rounded-b-xl">
-                                        <button
+                                    <div className="flex items-center flex-wrap bg-gray-200 rounded-b-xl">
+                                        {/* <button
                                             className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                             type="button"
                                             onClick={() => setShowModal(true)}
                                         >
                                             Read More
-                                        </button>
+                                        </button> */}
                                         <button
-                                            className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                            className="bg-gray-500 text-gray-300 active:bg-gray-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                             type="button"
                                             onClick={() => handleDelete(blog._id)}
                                         >
@@ -115,8 +122,6 @@ const ManageBlog = () => {
                         </div>
                     )
                 })}
-
-
             </div>
         </div>
     );
