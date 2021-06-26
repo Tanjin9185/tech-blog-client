@@ -12,7 +12,7 @@ const LoadBlogs = () => {
     const [blogs, setBlogs] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/blogs')
+        fetch('https://nameless-bastion-98603.herokuapp.com/blogs')
             .then(res => res.json())
             .then(data => {
                 console.log("datfgfffa", data)

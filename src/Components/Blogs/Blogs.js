@@ -15,7 +15,7 @@ const Blogs = ({ blog }) => {
                             <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                                 {/*header*/}
                                 <div className="flex-col items-center w-full justify-center p-5 border-b border-solid border-blueGray-200 rounded-t">
-                                    <img className="object-cover rounded-t w-full h-64 pb-3" src={`data:image/png;base64,${blog.image.img}`} alt="" />
+                                    <img className="object-cover rounded-t w-full h-full pb-3" src={`data:image/png;base64,${blog.image.img}`} alt="" />
                                     <h3 className="text-3xl px-5 font-semibold justify-center item-center">
                                         {blog.title}
                                     </h3>

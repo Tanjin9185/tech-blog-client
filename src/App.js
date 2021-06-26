@@ -3,48 +3,62 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
 
+import { createContext, useState } from 'react';
 import Login from './Components/Login/Login'
 import Navbar from './Components/Navbar/Navbar';
 import AddBlog from './Components/AddBlog/AddBlog';
 import Home from './Components/Home/Home';
 import Contact from './Components/Contact/Contact';
 import NoMatch from './Components/NoMatch/NoMatch';
+import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
+import Dashboard from './Components/Dashboard/Dashboard';
+import ManageBlog from './Components/ManageBlog/ManageBlog';
 
+export const UserContext = createContext();
 
 function App() {
+  const [loggedinUser, setLoggedinUser] = useState({});
 
   return (
-    <Router>
+    <UserContext.Provider value={[loggedinUser, setLoggedinUser]}>
+      <Router>
 
-      <div>
-        <Navbar></Navbar>
-        <Switch>
-          <Route path="/login">
-            <Login />
-          </Route>
-          {/* <Route path="/users">
-          <Users />
-        </Route> */}
-          <Route path="/contact">
-            <Contact />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-          <Route path="*">
-            <NoMatch />
-          </Route>
-        </Switch>
-      </div>
+        <div>
+          <Navbar></Navbar>
+          <Switch>
+            <Route path="/login">
+              <Login />
+            </Route>
 
-    </Router>
+            <Route path="/contact">
+              <Contact />
+            </Route>
+            {/* <Route path="/dashboard">
+              <Dashboard />
+            </Route> */}
+            <PrivateRoute path="/dashboard">
+              <Dashboard />
+            </PrivateRoute >
+            <PrivateRoute path="/manageBlog">
+              <ManageBlog />
+            </PrivateRoute >
+            <PrivateRoute path="/addBlog">
+              <AddBlog />
+            </PrivateRoute >
+            <Route path="/">
+              <Home />
+            </Route>
+            <Route path="*">
+              <NoMatch />
+            </Route>
+          </Switch>
+        </div>
 
-    //   <AddBlog></AddBlog>
-    //  
-    // </div>
+      </Router>
+    </UserContext.Provider>
+
   )
 }
 

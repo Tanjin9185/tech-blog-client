@@ -1,6 +1,75 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
+import firebase from "firebase/app";
+import "firebase/auth";
+import firebaseConfig from './firebase.config';
+import { useHistory, useLocation } from 'react-router';
+import { SignInUserWithEmailAndPassword, initializeLogIn as initializeLogIn, } from './LoginManager';
+import { UserContext } from '../../App';
 
 const Login = () => {
+    initializeLogIn();
+    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+
+    const [user, setUser] = useState({
+        isSignIn: false,
+        email: '',
+        password: '',
+        error: '',
+        success: false
+    });
+
+    const history = useHistory();
+    const location = useLocation();
+    const { from } = location.state || { from: { pathname: "/" } };
+
+    const handleResponse = (res, redirect) => {
+        setUser(res)
+        setLoggedInUser(res)
+        if (redirect) {
+            history.replace(from);
+        }
+    }
+
+
+
+    const storeAuthToken = () => {
+        firebase.auth().currentUser.getIdToken(/* forceRefresh */ true)
+            .then(function (idToken) {
+                sessionStorage.setItem('token', idToken);
+                history.replace(from);
+            }).catch(function (error) {
+                // Handle error
+            });
+    }
+
+    const handleSubmit = (event) => {
+
+        //   if ( user.email && user.password)
+        //   {
+        SignInUserWithEmailAndPassword(user.email, user.password)
+            .then(res => {
+
+                handleResponse(res, true);
+                setLoggedInUser(res);
+
+            })
+            .catch(err =>
+                console.log(err))
+        //   }
+        console.log("clicked");
+        event.preventDefault();
+    }
+
+
+
+    const handleBlur = (event) => {
+
+        const newUserInfo = { ...user };
+        newUserInfo[event.target.name] = event.target.value;
+        setUser(newUserInfo);
+
+    }
+
     return (
         <div className="font-sans my-8">
             <div className="relative min-h-screen flex flex-col sm:justify-center items-center bg-gray-100 ">
@@ -11,19 +80,15 @@ const Login = () => {
                         <label htmlFor className="block mt-3 text-sm text-gray-700 text-center font-semibold">
                             Login
                         </label>
-                        <form method="#" action="#" className="mt-10">
-                            <div>
-                                <input type="text" placeholder="Nombres" className="mt-1 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0" />
+                        <form onSubmit={handleSubmit} method="#" action="#" className="mt-10">
+
+                            <div className="mt-7">
+                                <input type="email" onBlur={handleBlur} name="email" placeholder="type email" className="mt-1 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0" />
                             </div>
                             <div className="mt-7">
-                                <input type="email" placeholder="type email" className="mt-1 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0" />
+                                <input type="password" onBlur={handleBlur} name="password" placeholder="password" className="mt-1 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0" />
                             </div>
-                            <div className="mt-7">
-                                <input type="password" placeholder="password" className="mt-1 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0" />
-                            </div>
-                            <div className="mt-7">
-                                <input type="password" placeholder="re-password" className="mt-1 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0" />
-                            </div>
+
                             <div className="mt-7">
                                 <button className="bg-blue-500 w-full py-3 rounded-xl text-white shadow-xl hover:shadow-inner focus:outline-none transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105">
                                     Login
@@ -40,19 +105,16 @@ const Login = () => {
                                 <button className="mr-5 bg-blue-500 border-none px-4 py-2 rounded-xl cursor-pointer text-white shadow-xl hover:shadow-inner transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105">
                                     Facebook
                                 </button>
-                                <button className="bg-red-500 border-none px-4 py-2 rounded-xl cursor-pointer text-white shadow-xl hover:shadow-inner transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105">
+                                <button type="submit" className="bg-red-500 border-none px-4 py-2 rounded-xl cursor-pointer text-white shadow-xl hover:shadow-inner transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105">
                                     Google
                                 </button>
                             </div>
-                            {/* <div className="mt-7">
-                                <div className="flex justify-center items-center">
-                                    <label className="mr-2">¿Ya tienes una cuenta?</label>
-                                    <a href="#" className=" text-blue-500 transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105">
-                                        Iniciar sesion
-                                    </a>
-                                </div>
-                            </div> */}
+
                         </form>
+                        <p >{user.error}</p>
+                        {
+                            user.success && <p style={{ color: 'green' }}>User Logged In successfully</p>
+                        }
                     </div>
                 </div>
             </div>
